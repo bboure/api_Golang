@@ -1,2 +1,2 @@
 # api_Golang
-Golang library for Go
+Golang library for PlanetHoster API
