@@ -28,7 +28,11 @@ type API struct {
 	timeout time.Duration
 }
 
-func (api *API) Prepare(actioname, path string, params map[string]string) (*http.Client, *http.Request, error) {
+func (api *API) SetTimeout(t time.Duration) {
+	api.timeout = t
+}
+
+func (api *API) Prepare(method, path string, params map[string]string) (*http.Client, *http.Request, error) {
 	client := &http.Client{
 		Timeout: api.timeout,
 		//tmp fix ...
@@ -42,17 +46,18 @@ func (api *API) Prepare(actioname, path string, params map[string]string) (*http
 			ps.Add(k, v)
 		}
 	}
-	req, err := http.NewRequest(actioname, APIUrl+path, bytes.NewBufferString(ps.Encode()))
+	req, err := http.NewRequest(method, APIUrl+path, bytes.NewBufferString(ps.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("User-Agent", fmt.Sprintf("GOphapi/%f", Version))
 	return client, req, err
 }
 
-func (api *API) SetTimeout(t time.Duration) {
-	api.timeout = t
-}
+func (api *API) Request(method, path string, params map[string]string, v interface{}) error {
+	client, req, err := api.Prepare(method, path, params)
+	if err != nil {
+		return err
+	}
 
-func request(client *http.Client, req *http.Request, v interface{}) error {
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -74,13 +79,8 @@ func request(client *http.Client, req *http.Request, v interface{}) error {
 
 //Test test the connection to the API. return nil on successful connection
 func (api *API) Test() error {
-	client, req, err := api.Prepare("GET", "/reseller-api/test-connection", nil)
-	if err != nil {
-		return err
-	}
-
 	var result ConnectionTestResult
-	err = request(client, req, &result)
+	err := api.Request("GET", "/reseller-api/test-connection", nil, &result)
 	if err != nil {
 		return err
 	}

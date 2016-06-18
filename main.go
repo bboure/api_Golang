@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/PlanetHoster/api_Golang/phapi"
+)
 
 func main() {
 	api := phapi.New("", "")

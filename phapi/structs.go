@@ -137,3 +137,48 @@ type TLDPrice struct {
 	TransferRequiresEPPCode bool   `json:"transfer_requires_epp_code"`
 	IDProtectionSupported   bool   `json:"id_protection_supported"`
 }
+
+// http://apidoc.planethoster.net/index.php?title=Email_EPP_code
+type EPPResponse struct {
+	ErrorResult
+
+	Message       string `json:"message"`
+	EppCodeSentTo string `json:"epp_code_sent_to"`
+}
+
+// http://apidoc.planethoster.net/index.php?title=Register_domain
+type RegisterDomain struct {
+	ErrorResult
+
+	Message    string `json:"message"`
+	OrderID    string `json:"order_id"`
+	OrderTotal string `json:"order_total"`
+	ExpiryDate string `json:"expiry_date"`
+}
+
+// http://apidoc.planethoster.net/index.php?title=Domain_renewal
+type DomainRenew struct {
+	ErrorResult
+
+	Message    string `json:"message"`
+	OrderID    string `json:"order_id"`
+	OrderTotal string `json:"order_total"`
+}
+
+// http://apidoc.planethoster.net/index.php?title=Change_contact_details
+// http://apidoc.planethoster.net/index.php?title=Update_Nameservers
+// http://apidoc.planethoster.net/index.php?title=Update_PlanetHoster_DNS_zone
+// http://apidoc.planethoster.net/index.php?title=Delete_PlanetHoster_DNS_zone
+type MessageResult struct {
+	ErrorResult
+
+	Message string `json:"message"`
+}
+
+// http://apidoc.planethoster.net/index.php?title=Update_domain_lock_status
+type UpdateLockResult struct {
+	ErrorResult
+
+	Message  string `json:"message"`
+	IsLocked bool   `json:"is_locked"`
+}
