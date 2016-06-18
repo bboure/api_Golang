@@ -81,6 +81,9 @@ func (api *API) Test() error {
 
 	var result ConnectionTestResult
 	err = request(client, req, &result)
+	if err != nil {
+		return err
+	}
 
 	if result.ErrorCode != 0 || !result.SuccessfulConnection {
 		return result.ErrorResult
