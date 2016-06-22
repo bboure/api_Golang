@@ -48,20 +48,18 @@ func main() {
 	//Enregistre un domaine (commenté pour éviter les erreurs)
 
 	/*	domain := phapi.NewDomainData(&phapi.ContactDomain{
-			FirstName:   "John",
-			LastName:    "Bob",
+			FirstName:   "Gabriel",
+			LastName:    "PlanetHoster",
 			Email:       "test@monmail.com",
 			CompanyName: "",
-			Address1:    "123 Chemin des Planète",
+			Address1:    "123 Chemin des Planètes",
 			Address2:    "",
 			City:        "Paris",
 			PostalCode:  "1234567",
 			State:       "Paris",
 			CountryCode: "FR",
 			Phone:       "0176604143",
-		}, "nsa.planethoster.net")
-		//Il est recommandé d'utiliser un minimum de 2 NS
-		domain.NS2 = "nsb.planethoster.net"
+		}, "nsa.planethoster.net", "nsb.planethoster.net")
 		domain.NS3 = "nsc.planethoster.net"
 
 		fmt.Println(api.RegisterDomain(sld, tld, 1, domain))
