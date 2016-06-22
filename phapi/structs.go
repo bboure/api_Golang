@@ -1,5 +1,6 @@
 package phapi
 
+/*
 import "fmt"
 
 //ErrorResult base struct to be able to Handle errors.
@@ -182,3 +183,4 @@ type UpdateLockResult struct {
 	Message  string `json:"message"`
 	IsLocked bool   `json:"is_locked"`
 }
+*/
