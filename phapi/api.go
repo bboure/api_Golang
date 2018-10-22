@@ -29,8 +29,9 @@ func haveError(r map[string]interface{}) bool {
 	return (ok && i != 0)
 }
 
-func New(apikey, apiuser string) *API {
+func New(apiUrl, apikey, apiuser string) *API {
 	return &API{
+		url:     apiUrl,	
 		key:     apikey,
 		user:    apiuser,
 		timeout: 30 * time.Second,
@@ -38,6 +39,7 @@ func New(apikey, apiuser string) *API {
 }
 
 type API struct {
+	url     string
 	key     string
 	user    string
 	timeout time.Duration
@@ -169,7 +171,7 @@ func (api *API) Prepare(method, path string, params []Param) (*http.Client, *htt
 		}
 	}
 
-	req, err := http.NewRequest(method, APIUrl+path, bytes.NewBufferString(ps.Encode()))
+	req, err := http.NewRequest(method, api.url+path, bytes.NewBufferString(ps.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("User-Agent", fmt.Sprintf("GOphapi/%f", Version))
 	return client, req, err
