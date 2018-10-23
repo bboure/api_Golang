@@ -171,9 +171,10 @@ func (api *API) Prepare(method, path string, params []Param) (*http.Client, *htt
 		}
 	}
 
-	req, err := http.NewRequest(method, api.url+path, bytes.NewBufferString(ps.Encode()))
+	req, err := http.NewRequest("POST", api.url+path, bytes.NewBufferString(ps.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("User-Agent", fmt.Sprintf("GOphapi/%f", Version))
+	req.Header.Set("X-Http-Method-Override", method)
 	return client, req, err
 }
 
